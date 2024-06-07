@@ -1,0 +1,198 @@
+{%extends "base.html"%}
+{%block title%} Explore Works {%endblock%}
+
+{%block content%}
+
+    <!-- ======= Services Section ======= -->
+    <main id="main">
+    <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <h2>Explore</h2>
+          <p>Explore the posted projects!</p>
+        </header>
+        <nav class="navbar navbar-light bg-body-tertiary">
+          <div class="container-fluid justibfy-content-end">
+            <form class="d-flex input-group w-auto" action="/explore" method="POST">
+              <ul class="navbar-nav mr-auto">
+                <div class="form-floating mb-3 d-flex justify-content-end" style="margin-top: 20px;">
+                  <li>
+                    <input
+                      type="search"
+                      name="search_text"
+                      class="form-control rounded"
+                      placeholder="Search by Name"
+                      aria-label="Search"
+                      aria-describedby="search-addon"
+                      />
+                    </li>
+                  <li>
+                    <select class="form-select" aria-label="Default select example" name="project">
+                      <option value="">Sort by Project Type</option>
+                      {%for project in ("Creative Writing|Essay|Poetry|Research Paper|Art Piece|Fashion Design|Photography|Model|Machine Learning|Program|Website|Video Game|Other").split("|")%}
+                      <option value="{{project}}">{{project}}</option>
+                      {%endfor%}
+                   </select>
+                   <label for="floatingInput"></label>
+                  </li>
+              <li class="nav-item">
+                <button type="submit" class="btn btn-primary" name="search">Search</button>
+              </li>
+          </div>
+            </ul>
+            </form>
+          </div>
+        </nav>
+        <div class="row gy-4">
+
+          {%for project in projects%}
+
+          <div class="col-lg-3 col-md-3" data-aos="fade-up" data-aos-delay="200">
+            {%if project.overall_type == "text"%}
+            <div class="service-box blue ">
+            {%elif project.overall_type == "image"%}
+            <div class="service-box pink ">
+            {%else%}
+            <div class="service-box red ">
+            {%endif%}
+            {%if project.type == "Research Paper" %}<i class="bi bi-blockquote-left icon"></i> {%elif project.type == "Creative Writing"%} <i class="bi bi-brush icon"></i> {%elif project.type == "Essay"%} <i class="bi bi-body-text icon"></i> {%elif project.type == "Poetry"%} <i class="icon bi bi-pen"></i> 
+            {%elif project.type == "Art Project"%} <i class="bi bi-paint-bucket icon"></i> {%elif project.type =="Fashion Design"%} <i class="icon bi bi-handbag"></i> {%elif project.type == "Photography"%} <i class="icon bi bi-camera"></i> {%elif project.type == "Model"%} <i class="icon bi bi-tools"></i>
+            {%elif project.type == "Machine Learning"%} <i class="bi bi-bezier2 icon"></i> {%elif project.type == "Program"%} <i class="icon bi bi-code-square"></i> {%elif project.type == "Website"%} <i class="icon bi bi-laptop"></i> {%elif project.type == "Video Game"%} <i class="icon bi bi-controller"></i>
+            {%else%} <i class="bi bi-menu-up icon"></i>
+            {%endif%}
+              <!-- <i class="ri-discuss-line icon"></i> -->
+              <h3>
+                {%if project.title|length > 15%}
+                {{project.title[:15]+"..."}}
+                {%else%}
+                {{project.title}}
+                {%endif%}</h3>
+              <p>{{project.author}}</p>
+              <p>{{project.type}}</p>
+              <p>
+                {%if project.description|length > 20%}
+                {{project.description[:20]+"..."}}
+                {%else%}
+                {{project.description}}
+                {%endif%}
+              </p>
+              <a href='{{(url_for("details", proj_id=project.id))}}' class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+
+          {%endfor%}
+
+          <!-- <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-box orange">
+              <i class="ri-discuss-line icon"></i>
+              <h3>Eosle Commodi</h3>
+              <p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut nesciunt dolorem.</p>
+              <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-box green">
+              <i class="ri-discuss-line icon"></i>
+              <h3>Ledo Markt</h3>
+              <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci eos earum corrupti.</p>
+              <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="service-box red">
+              <i class="ri-discuss-line icon"></i>
+              <h3>Asperiores Commodi</h3>
+              <p>Non et temporibus minus omnis sed dolor esse consequatur. Cupiditate sed error ea fuga sit provident adipisci neque.</p>
+              <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-box purple">
+              <i class="ri-discuss-line icon"></i>
+              <h3>Velit Doloremque.</h3>
+              <p>Cumque et suscipit saepe. Est maiores autem enim facilis ut aut ipsam corporis aut. Sed animi at autem alias eius labore.</p>
+              <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="700">
+            <div class="service-box pink">
+              <i class="ri-discuss-line icon"></i>
+              <h3>Dolori Architecto</h3>
+              <p>Hic molestias ea quibusdam eos. Fugiat enim doloremque aut neque non et debitis iure. Corrupti recusandae ducimus enim.</p>
+              <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div> -->
+
+        </div>
+
+      </div>
+
+    </section><!-- End Services Section -->
+  </main>
+
+
+<!-- 
+<section>
+    <nav class="navbar navbar-light bg-body-tertiary">
+        <div class="container-fluid justibfy-content-end">
+          <form class="d-flex input-group w-auto" action="/inventory" method="POST">
+            <ul class="navbar-nav mr-auto">
+              <div class="form-floating mb-3 d-flex justify-content-end" style="margin-top: 20px;">
+                <li>
+                  <input
+                    type="search"
+                    name="search_text"
+                    class="form-control rounded"
+                    placeholder="Search by Name"
+                    aria-label="Search"
+                    aria-describedby="search-addon"
+                    />
+                  </li>
+                <li>
+                  <select class="form-select" aria-label="Default select example" name="project">
+                    <option value="">Sort by Project Type</option>
+                    {%for project in ("Art Piece|Coding Project|Creative Writing|Essay|Poetry|Research Paper|Other").split("|")%}
+                    <option value="{{project}}">{{project}}</option>
+                    {%endfor%}
+                    <option value="second">Second</option>
+                 </select>
+                 <label for="floatingInput"></label>
+                </li>
+            <li class="nav-item">
+              <button type="submit" class="btn btn-primary" name="search">SEARCH</button>
+            </li>
+        </div>
+          </ul>
+          </form>
+        </div>
+      </nav>
+<div class="container">
+    <div class="py-5">
+        <div class="container">
+            <div class="row">
+            {%for project in projects%}
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-block">
+                  <h4 class="card-title">{{project.title}}</h4>
+                  <h6 class="card-subtitle text-muted">{{project.author}}</h6>
+                  <p class="card-text p-y-1">{{project.description}}</p>
+                  <p class="card-text p-y-1">{{project.classe}}</p>
+                  <a href="{{url_for('details', proj_id = project.id)}}" class="card-link">Learn More</a>
+                </div>
+              </div>
+              </div>
+              {%endfor%}
+            </div>
+            
+      <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+      <script src="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-alpha.6.min.js"></script>
+</div>
+</section> -->
+  {%endblock%}

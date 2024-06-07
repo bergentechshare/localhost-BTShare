@@ -1,0 +1,49 @@
+{%extends "base.html"%}
+{%block title%}Profile{%endblock%}
+<header>
+    <style>
+        .main-container{
+            height: 500px;
+          }
+    </style>
+</header>
+{%block content%}
+<section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4 ">
+            <div class="card-body text-center">
+                <h2>{{user.name}}</h2>
+                <h4>{{user.email}}</h4>
+              <div class="d-flex justify-content-center mb-2">
+                {%if current_user.id == user.id or current_user.admin_level != "none"%}
+                <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary">Edit</button>
+                <a class="btn btn-danger" href="{{url_for('delete_user', user_id = user.id, page=profile)}}" role="button" onclick="return confirm('Are you sure to delete the account?')">Delete Account</a>
+                {%endif%}
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 overflow-auto main-container">
+            <h2>List of Projects:</h2>
+            {%for project in projects%}
+            <div class="row">
+                <div class="card mb-4">
+                    <div class="card-title"></div>
+                    <div class="card-body">
+                        <h5>Project:</h5>
+                        <h3> <a href="{{url_for('details', proj_id=project.id)}}">{{project.title}}</a>
+                          </h3>
+                        <h5> Description: <br> </h5>
+                        <h4>   {{project.description}}</h4>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {%endblock%}

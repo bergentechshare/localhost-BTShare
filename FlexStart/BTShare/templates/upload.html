@@ -1,0 +1,64 @@
+{%extends "base.html"%}
+{%block title%}Upload Your Work! {%endblock%}
+
+{%block content%}
+
+<section id="pricing" class="pricing">
+
+  <div class="container" data-aos="fade-up">
+
+    <header class="section-header">
+      <br>
+      <!-- <h2>Pricing</h2> <br> -->
+      <p>Choose your Submission Type</p>
+    </header>
+    
+    <div class="row gy-4" data-aos="fade-left">
+
+      <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+        <div class="box">
+          <h2 style="color: #07d5c0;">Text Based</h2>
+          <!-- <img src="static/assets/img/pricing-free.png" class="img-fluid" alt=""> -->
+          <ul>
+            <li>Meant for text based projects</li>
+            <li>Research Papers, Essays, Creative Writing</li>
+            <li>Requires a PDF</li>
+            
+          </ul>
+          <a href="/upload_text" class="btn-buy">Upload</a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+        <div class="box">
+          <h2 style="color: #65c600;">Image Based</h2>
+          <!-- <img src="static/assets/img/pricing-starter.png" class="img-fluid" alt=""> -->
+          <ul>
+            <li>Meant for image based projects</li>
+            <li>Art projects, physical creations</li>
+            <li>Requires a .PNG</li>
+          </ul>
+          <a href="/upload_image" class="btn-buy">Upload</a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+        <div class="box">
+          <h2 style="color: #ff901c;">Code Based</h2>
+          <!-- <img src="static/assets/img/pricing-business.png" class="img-fluid" alt=""> -->
+          <ul>
+            <li>Meant for code based projects</li>
+            <li>Programs, Games, Web Apps</li>
+            <li>Requires a working link of code, not a downloadable file</li>
+          </ul>
+          <a href="/upload_code" class="btn-buy">Upload</a>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section><!-- End Pricing Section -->
+{%endblock%}

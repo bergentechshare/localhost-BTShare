@@ -1,0 +1,62 @@
+{%extends "base.html"%}
+{%block title%}Home{%endblock%}
+{%block content%}
+
+<section id="hero" class="hero d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center">
+          <h1 data-aos="fade-up">Welcome to BT Share!</h1>
+          <h2 data-aos="fade-up" data-aos-delay="400">Offering a way for BT Students to publish their work</h2>
+          <div data-aos="fade-up" data-aos-delay="600">
+            <div class="text-center text-lg-start">
+              <a href="/explore" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                <span>Get Exploring</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+          <img src="static/assets/img/hero-img.png" class="img-fluid" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+
+      <div class="container" data-aos="fade-up">
+        <div class="row gx-0">
+
+          <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="content">
+              <h3>What is BT Share?</h3>
+              <h2>An opprotunity for students to further share their work</h2>
+              <p>
+                At Bergen Tech, students can explore a wide range of subjects through research and projects. Despite the time and effort put into these projects, often many months, many projects aren't publicly accessible due to limited publishing options. BT Share aims to address this by providing an online platform for students to share their work.                <br>
+                (This is NOT an offical publishing platform)
+              </p>
+              <div class="text-center text-lg-start">
+                <a href="/presentation" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
+                  <span>Presentation</span>
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+            <img src="https://studentadmissions.bergen.org/images/gym.png?1504287145082&1504287150953&1504287177484&1513609637599&1531313005561&1531313030200&1566919167377&1575646936448&1579017644022&1579017649851&1579017689745&1579017939450&1584559540521&1586962551863&1586965202449&1586965254016&1593020626428&1593020645434&1598376212499&1607095472527&1607095482070&1608568952317&1608643425705&1608732220655&1609791060555&1610312259430&1610549304667&1613149149694&1613151555274&1615301676019&1631277575698&1655212079025&1670105226513&1671647748864&1671725979895&1672252360029&1672771153195&1672945756162&1673268246824&1674069515359&1676637976918&1677516982094&1678304771315&1680719581468" class="img-fluid" alt="">
+          </div>
+
+        </div>
+      </div>
+
+    </section><!-- End About Section -->
+
+{%endblock%}

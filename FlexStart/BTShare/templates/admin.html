@@ -1,0 +1,83 @@
+{%extends "base.html"%}
+{%block title%}Admin{%endblock%}
+
+{%block content%}
+<section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2>List of Users</h2>
+          <div class="card mb-4 ">
+            <div class="card-body text-center">
+              <table>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Admin Level</th>
+                  <th>Actions</th>
+                </tr>
+                {%for user in users%}
+                <tr>
+                  <form action="/admin" method="POST">
+                  <td>
+                    <input type="hidden" id="form1Example13" class="form-control form-control-sm" name="id" value="{{user.id}}"/>
+                    <input type="text" id="form1Example13" class="form-control form-control-sm" name="name" value="{{user.name}}"/>
+                  </td>
+                  <td>
+                    <input type="email" id="form1Example13" class="form-control form-control-sm" name="email" value="{{user.email}}"/>
+                  </td>
+                  <td>
+                    {%if user.admin_level !="super"%}
+                    <select name="admin">
+                      <option value="none" {% if user.admin_level == 'none' %}selected{% endif %}>None</option>
+                      <option value="admin" {% if user.admin_level == 'admin' %}selected{% endif %}>Admin</option>
+                  </select>
+                  {%endif%}
+                  </td>
+                  <td>
+                      <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary" name="change">Save Changes</button>
+                      <a class="btn btn-danger" href="{{url_for('delete_user', user_id = user.id, page=admin)}}" role="button" onclick="return confirm('Are you sure to delete the account?')">Delete Account</a>
+                  </td>
+                </form>
+                </tr>
+                {%endfor%}
+              </table>
+                
+              <div class="d-flex justify-content-center mb-2">
+                
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 overflow-auto main-container">
+            <h2>List of Reports:</h2>
+            <div class="card mb-4 ">
+              <div class="card-body text-center">
+                <table>
+                  <tr>
+                    <th>Reporting User ID</th>
+                    <th>Reported Project ID</th>
+                    <th>Reason</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                  </tr>
+                    <form action="/admin" method="POST">
+                    {%for report in reports%}
+                    <tr>
+                      <td> <a href="{{url_for('profile', user_id = report.user_id)}}">{{report.user_id}} <input type="hidden" name="user_id" value="{{report.user_id}}"></a></td>
+                      <td> <a href="{{url_for('details', proj_id=report.project_id)}}">{{report.project_id}}</a>  <input type="hidden" name="proj_id" value="{{report.project_id}}"></td>
+                      <td>{{report.reason}} <input type="hidden" name="reason" value="{{report.reason}}"></td>
+                      <td>{{report.description}} <input type="hidden" name="description" value="{{report.description}}"></td>
+                      <td>
+                        <button type="submit" class="btn btn-secondary"  name="report">Close Report</button>
+                      </td>
+                    </tr>
+                    {%endfor%}
+                  </form>
+                </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {%endblock%}

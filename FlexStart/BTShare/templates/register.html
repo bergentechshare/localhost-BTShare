@@ -1,0 +1,52 @@
+{%extends "base.html"%}
+{%block title%} Register {%endblock%}
+
+{%block content%}
+
+<section class="">
+    <div class="container py-5 h-100">
+      <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-8 col-lg-7 col-xl-6">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+            class="img-fluid" alt="Phone image">
+        </div>
+        <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+            <h1>Register</h1>
+          <form method="POST" action="/register">
+            <!-- names -->
+            <div data-mdb-input-init class="form-outline mb-4">
+                <input type="text" id="form1Example13" class="form-control form-control-lg" name="name"/>
+                <label class="form-label" for="form1Example13">Full Name</label>
+              </div>
+
+            <!-- Email input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input type="email" id="form1Example13" class="form-control form-control-lg" name="email"/>
+              <label class="form-label" for="form1Example13">Email address (bergen.org)</label>
+            </div>
+  
+            <!-- Password input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input type="password" id="form1Example23" class="form-control form-control-lg" name="password"/>
+              <label class="form-label" for="form1Example23">Password</label>
+            </div>
+
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input type="password" id="form1Example23" class="form-control form-control-lg" name="confirm_password"/>
+              <label class="form-label" for="form1Example23">Confirm password</label>
+            </div>
+  
+            <div class="d-flex justify-content-around align-items-center mb-4">
+              <!-- Checkbox -->
+              <a href="#!">Forgot password?</a>
+            </div>
+  
+            <!-- Submit button -->
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%endblock%}

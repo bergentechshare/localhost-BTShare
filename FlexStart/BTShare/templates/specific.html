@@ -1,0 +1,169 @@
+{%extends "base.html"%}
+{%block title%}{{project.title}} {%endblock%}
+{%block content%}
+
+<!-- content -->
+<section class="py-5 mt-5">
+  <div class="container">
+    <div class="row gx-5">
+      <div class="col justify-content-start">
+       <a class="btn btn-light" onclick="history.back()"> <- Back</a>
+      </div>
+    </div>
+    <div class="row gx-5">
+      <aside class="col-lg-6">
+        <div class="border rounded-4 mb-3 d-flex justify-content-center">
+          {%if project.overall_type == "text"%}
+            <iframe id="inlineFrameExample" title="Inline Frame Example" width="100%" height="800px" src="data:application/pdf;base64,{{ project_main }}"> </iframe>
+          {%elif project.overall_type == "image"%}
+            <img src="data:image/png;base64,{{ project_main }}" alt="" width="100%">
+          {%elif project.overall_type == "code"%}
+          <div class="">
+            <iframe class="" src="{{project_main}}" width="100%" height="800px"></iframe>
+          </div>
+          {%endif%}
+        </div>
+        <!-- thumbs-wrap.// -->
+        <!-- gallery-wrap .end// -->
+      </aside>
+      <main class="col-lg-6">
+        <div class="ps-lg-3">
+          <h1 class="title text-dark"> 
+            {{project.title}}
+          </h1>
+
+          <div class="mb-3">
+            <span class="h3"><a href="{{url_for('profile', user_id = project.user_id)}}">By {{project.author}}</a>
+              </span>
+          </div>
+
+          <div class="d-flex flex-row my-3">
+            <h4>{{project.type}} done in {{project.course}}</h4>
+          </div>
+            Description: <br>
+            {{project.description}}
+            {%if project.overall_type == "code"%}
+            <br>
+            <a href="{{project_main}}" target="_blank">Link to Code</a>
+            {%endif%}
+          </p>
+          {%if current_user.is_verified and (current_user.id == project.user_id or current_user.admin_level != "none")%}
+          <button type="button" class="btn btn-outline-danger justify-content-md-end" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+            Edit
+          </button>
+          <a class="btn btn-primary" href="{{url_for('delete_project', proj_id = project.id, user_id=current_user.id)}}" role="button" onclick="return confirm('Are you sure to delete {{project.title}}?')">Delete</a>
+          <form action="/details" method="POST" enctype="multipart/form-data">
+          <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Project</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  {%if project.overall_type == "image"%}
+                  <input type="file" class="form-control" name="image_file" accept=".png" aria-describedby="basic-addon1" >
+                  {%elif project.overall_type == "text"%}
+                  <input type="file" class="form-control" name="text_file" accept=".pdf" aria-describedby="basic-addon1" >
+                  {%else%}
+                  <input type="url" id="form1Example13" class="form-control form-control-lg" name="link" value="{{project_main}}"/>
+                  <label class="form-label" for="form1Example13">Enter Link</label>
+                  {%endif%}
+                  <br><br>
+                  <input type="hidden" id="form1Example13" class="form-control form-control-lg" name="id" value="{{project.id}}"/>
+                  <button type="submit" class="btn btn-secondary" name="project_change">Change Project</button> <br><br>
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="text" id="form1Example13" class="form-control form-control-lg" name="title" value="{{project.title}}"/>
+                    <label class="form-label" for="form1Example13">Title</label>
+                  </div>
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="text" id="form1Example13" class="form-control form-control-lg" name="class" value="{{project.course}}"/>
+                    <label class="form-label" for="form1Example13">Class</label>
+                  </div>
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="text" id="form1Example13" class="form-control form-control-lg" name="description" value="{{project.description}}"/>
+                    <label class="form-label" for="form1Example13">Description</label>
+                  </div>
+                <div data-mdb-input-init class="form-outline mb-4">
+                  {%if project.overall_type == "text"%}
+                    <select class="form-select" aria-label="Default select example" name="type" >
+                        <option value="Creative Writing">Creative Writing</option>
+                        <option value="Essay">Essay</option>
+                        <option value="Poetry">Poetry</option>
+                        <option value="Research Paper">Research Paper</option>
+                        <option value="Other">Other</option>
+                     </select>
+                     {%elif project.overall_type == "image"%}
+                     <select class="form-select" aria-label="Default select example" name="type" required>
+                      <h6 class="dropdown-header">Choose project type</h6>
+                      <option value="Art Project">Art Piece</option>
+                      <option value="Fashion Design">Fashion Design</option>
+                      <option value="Photography">Photography</option>
+                      <option value="Model">Model</option>
+                      <option value="other">Other</option>
+                   </select>
+                   {%else%}
+                   <select class="form-select" aria-label="Default select example" name="type" required>
+                    <h6 class="dropdown-header">Choose project type</h6>
+                    <option value="Machine Learning">Machine Learning</option>
+                    <option value="Program">Program</option>
+                    <option value="Website">Website</option>
+                    <option value="Video Game">Video Game</option>
+                    <option value="Other">Other</option>
+                 </select>
+                   {%endif%}
+                     <label for="floatingInput">Choose project type</label>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-danger" name="details"> Submit Details Changes</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div> 
+          {%endif%}
+
+
+        <button type="button" class="btn btn-warning justify-content-md-end" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+          Report
+        </button>
+        <form action="/details" method="POST" enctype="multipart/form-data">
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Report Project</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" id="form1Example13" class="form-control form-control-lg" name="id" value="{{project.id}}"/>
+                <div data-mdb-input-init class="form-outline mb-4">
+                </div>
+                <h2>Reason for Reporting</h2> <h5>(Inappropiate Content, Plagarism, etc)</h5>
+              <div data-mdb-input-init class="form-outline mb-4">
+                  <input type="text" id="form1Example13" class="form-control form-control-lg" name="report_reason" required/>
+                </div>
+                <h2>Description</h2> <h5>(Why does this deserve to be take down? Please give proof for plagarism)</h5>
+              <div data-mdb-input-init class="form-outline mb-4">
+                  <input type="text" id="form1Example13" class="form-control form-control-lg" name="report_description" required/>
+                </div>  
+                <p>Please note that when reporting, your user will also be included in the report to disencourage false reports</p>                  
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-danger" name="report"> Submit Project Report</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div> 
+        </form> 
+        </div>
+        
+      </main>
+    </div>
+  </div>
+  
+</section>
+
+<!-- content -->
+{%endblock%}
